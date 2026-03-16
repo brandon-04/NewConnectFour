@@ -53,3 +53,17 @@ function addPiece(elementCoord) {
     }
 
 }
+
+function checkWin() {
+    
+}
+
+
+
+
+//list of things to do
+//1 - Create win check conditions and alghorithm.
+//     . column win check
+//     . row win check
+//     . diagonal win check
+
