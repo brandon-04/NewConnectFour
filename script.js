@@ -12,9 +12,6 @@ let turnCounter = 1;
 createRowsAndCircles();
 addHandlers();
 
-
-
-
 function createRowsAndCircles() {
     for(let i = 0; i < 6; i++){
         let row = document.createElement("div");
@@ -24,7 +21,7 @@ function createRowsAndCircles() {
         for(let x = 0; x < 7; x++){
             let circle = document.createElement("div");
 
-            let circleCoord = `y${i}-x${x}`;
+            let circleCoord = `x${i}-y${x}`;
 
             circle.setAttribute("id", circleCoord);
             circle.setAttribute("class", "circle")
@@ -40,7 +37,8 @@ function addHandlers() {
 
     for(let i = 0; i < circles.length; i++){
         circles[i].addEventListener("click", () => {
-            addPiece(circles[i].id)
+            addPiece(circles[i].id);
+            
         });
     }
 }
@@ -49,22 +47,38 @@ function addPiece(elementCoord) {
     let colValue = elementCoord.substr(4);
 
     for(let i = 5; i >= 0; i--){
-        let checkVal = `y${i}-x${colValue}`
+        let checkVal = `x${i}-y${colValue}`
 
         if(!blueTurnHistory.includes(checkVal)&&!redTurnHistory.includes(checkVal)){
             //red turn: when turnCounter % 2 != 0
             //blue turn: when turnCounter % 2 == 0
 
-            turnCounter % 2 == 0? blueTurnHistory += checkVal: redTurnHistory += checkVal;
-
+            turnCounter % 2 == 0? blueTurnHistory += checkVal : redTurnHistory += checkVal;
+            document.querySelector(`#${checkVal}`).classList.toggle(turnCounter % 2 == 0?  "selectedBlue" : "selectedRed");
             turnCounter++;
 
-            document.querySelector(`#${checkVal}`).classList.toggle(turnCounter % 2 == 0? "selectedRed" : "selectedBlue");
             break;
         }
     }
 
 }
+
+function checkColumn(columnNumber) {
+    let blueInColumn = 0;
+    let redInColumn = 0;
+
+    for(let i = 0; i < 6; i++) {
+        let checkVal = `x${i}-y${columnNumber}`
+        if(blueTurnHistory.includes(checkVal)) {
+            blueInColumn ++;
+        }
+        if(redTurnHistory.includes(checkVal)) {
+            redInColumn++;
+        }
+    }
+
+}
+
 
 
 
@@ -75,4 +89,3 @@ function addPiece(elementCoord) {
 //     . column win check
 //     . row win check
 //     . diagonal win check
-
