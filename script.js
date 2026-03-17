@@ -1,10 +1,18 @@
 
 let board = document.querySelector("#board");
-let turnHistory = [];
+
+document.querySelector("#resetButton").addEventListener("click", () => {
+    location.reload();
+});
+
+let blueTurnHistory = [];
+let redTurnHistory = [];
 let turnCounter = 1;
 
 createRowsAndCircles();
 addHandlers();
+
+
 
 
 function createRowsAndCircles() {
@@ -43,20 +51,21 @@ function addPiece(elementCoord) {
     for(let i = 5; i >= 0; i--){
         let checkVal = `y${i}-x${colValue}`
 
-        if(!turnHistory.includes(checkVal)){
-            turnHistory += checkVal;
+        if(!blueTurnHistory.includes(checkVal)&&!redTurnHistory.includes(checkVal)){
+            //red turn: when turnCounter % 2 != 0
+            //blue turn: when turnCounter % 2 == 0
+
+            turnCounter % 2 == 0? blueTurnHistory += checkVal: redTurnHistory += checkVal;
+
             turnCounter++;
 
-            document.querySelector(`#${checkVal}`).classList.toggle(turnCounter % 2 == 0? "selectedBlue" : "selectedRed");
+            document.querySelector(`#${checkVal}`).classList.toggle(turnCounter % 2 == 0? "selectedRed" : "selectedBlue");
             break;
         }
     }
 
 }
 
-function checkWin() {
-    
-}
 
 
 
