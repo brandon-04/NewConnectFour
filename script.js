@@ -7,6 +7,8 @@ document.querySelector("#resetButton").addEventListener("click", () => {
 
 let blueTurnHistory = [];
 let redTurnHistory = [];
+let locationOfPieces = [];
+
 let turnCounter = 1;
 
 createRowsAndCircles();
@@ -38,7 +40,6 @@ function addHandlers() {
     for(let i = 0; i < circles.length; i++){
         circles[i].addEventListener("click", () => {
             addPiece(circles[i].id);
-            
         });
     }
 }
@@ -47,45 +48,95 @@ function addPiece(elementCoord) {
     let colValue = elementCoord.substr(4);
 
     for(let i = 5; i >= 0; i--){
-        let checkVal = `x${i}-y${colValue}`
+        let checkVal = `x${i}-y${colValue}`        
 
         if(!blueTurnHistory.includes(checkVal)&&!redTurnHistory.includes(checkVal)){
-            //red turn: when turnCounter % 2 != 0
-            //blue turn: when turnCounter % 2 == 0
+            let pushValue = `${checkVal}-${turnCounter % 2 == 0?  "B" : "R"}`;
 
-            turnCounter % 2 == 0? blueTurnHistory += checkVal : redTurnHistory += checkVal;
             document.querySelector(`#${checkVal}`).classList.toggle(turnCounter % 2 == 0?  "selectedBlue" : "selectedRed");
-            turnCounter++;
 
+            turnCounter % 2 == 0? blueTurnHistory += pushValue : redTurnHistory += pushValue;
+            locationOfPieces += pushValue;
+
+            if(i <= 2){
+                checkColumnWin(pushValue);
+            }
+            if(turnCounter >=7) {
+                checkRowWin(pushValue);
+            }
+
+            turnCounter++;
             break;
         }
     }
-
 }
 
-function checkColumn(columnNumber) {
-    let blueInColumn = 0;
-    let redInColumn = 0;
+function checkColumnWin(coord) {
+    let xVal = coord.substring(1,2);
+    let yVal = coord.substring(4,5);//stays the same
+    let startingColor = coord.substring(6,7);
+    let checkArray = "";
 
-    for(let i = 0; i < 6; i++) {
-        let checkVal = `x${i}-y${columnNumber}`
-        if(blueTurnHistory.includes(checkVal)) {
-            blueInColumn ++;
+    for(let x = xVal; x <= 5; x++) {
+        let checkVal = `x${x}-y${yVal}-${startingColor}`;
+        checkArray += locationOfPieces.includes(checkVal) ? "1" : "0";
+    }
+
+    if(checkArray.includes("1111")) {
+        setTimeout(() => {
+            winPrompt(startingColor);
+        }, 500)
+    }
+}
+
+function checkRowWin(coord) {
+    let xVal = coord.substring(1,2); //stays the same
+    let yVal = coord.substring(4,5); 
+    let startingColor = coord.substring(6,7);
+
+    let checkArr = "";
+
+    if(locationOfPieces.includes(`x${xVal}-y${3}-${startingColor}`)){
+        for(let i = 0; i <= 6; i++) {
+            let checkVal = `x${xVal}-y${i}-${startingColor}`
+
+            checkArr += locationOfPieces.includes(checkVal) ? "1" : "0";
         }
-        if(redTurnHistory.includes(checkVal)) {
-            redInColumn++;
+
+        if(checkArr.includes("1111")) {
+            setTimeout(() => {
+                winPrompt(startingColor);
+            }, 500)
         }
+
     }
 
 }
 
+function winPrompt(colour) {
+    alert(`${colour == "B"? "Blue" : "Red"} wins!`)
+    location.reload();
+}
 
 
+//x{xValue}-y{yValue}-{Colour}
+//row number = coord.substring(1, 2)
+//column number = coord.substring(4, 5)
+//cell colour = coord.substring(6, 7)
 
+//red turn: when turnCounter % 2 != 0
+//blue turn: when turnCounter % 2 == 0
 
+//row win possibilities
+// y0-y3
+// y1-y4
+// y2-y5
+// y3-y6
+// all potential wins go through y3
 
-//list of things to do
-//1 - Create win check conditions and alghorithm.
-//     . column win check
-//     . row win check
-//     . diagonal win check
+//column win possibilities
+// x0-x3
+// x1-x4
+// x2-x5
+// all potential wins go through x2 and x3
+
