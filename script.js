@@ -85,7 +85,7 @@ function checkColumnWin(coord) {
     if(checkArray.includes("1111")) {
         setTimeout(() => {
             winPrompt(startingColor);
-        }, 500)
+        }, 250)
     }
 }
 
@@ -106,12 +106,21 @@ function checkRowWin(coord) {
         if(checkArr.includes("1111")) {
             setTimeout(() => {
                 winPrompt(startingColor);
-            }, 500)
+            }, 250)
         }
 
     }
 
 }
+
+function checkDiagonal(coord) {
+
+}
+
+function isEdge(coord) {
+    
+}
+
 
 function winPrompt(colour) {
     alert(`${colour == "B"? "Blue" : "Red"} wins!`)
