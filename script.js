@@ -83,9 +83,8 @@ function checkColumnWin(coord) {
     }
 
     if(checkArray.includes("1111")) {
-        setTimeout(() => {
-            winPrompt(startingColor);
-        }, 250)
+        winPrompt(startingColor);
+
     }
 }
 
@@ -104,13 +103,10 @@ function checkRowWin(coord) {
         }
 
         if(checkArr.includes("1111")) {
-            setTimeout(() => {
-                winPrompt(startingColor);
-            }, 250)
+            winPrompt(startingColor);
+            
         }
-
     }
-
 }
 
 function checkDiagonal(coord) {
@@ -118,19 +114,30 @@ function checkDiagonal(coord) {
 }
 
 function isEdge(coord) {
-    
+    let xVal = coord.substring(1,2);
+    let yVal = coord.substring(4,5);
+
+    if(xVal == 0 || xVal == 5 || yVal == 0 || yVal == 6) {
+        return true;
+    }
+    return false;
 }
 
 
 function winPrompt(colour) {
-    alert(`${colour == "B"? "Blue" : "Red"} wins!`)
-    location.reload();
+
+    setTimeout(() => {
+        alert(`${colour == "B"? "Blue" : "Red"} wins!`)
+        location.reload();
+
+    },110);
+    
 }
 
 
 //x{xValue}-y{yValue}-{Colour}
-//row number = coord.substring(1, 2)
-//column number = coord.substring(4, 5)
+//row number(x) = coord.substring(1, 2)
+//column number(y) = coord.substring(4, 5)
 //cell colour = coord.substring(6, 7)
 
 //red turn: when turnCounter % 2 != 0
