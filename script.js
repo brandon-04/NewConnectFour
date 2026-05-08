@@ -64,6 +64,9 @@ function addPiece(elementCoord) {
             if(turnCounter >=7) {
                 checkRowWin(pushValue);
             }
+            if(turnCounter >=7) {
+                checkDiagonal(pushValue);
+            }
 
             turnCounter++;
             break;
@@ -112,31 +115,29 @@ function checkDiagonal(coord) {
     let yVal = coord.substring(4,5);
     let startingColor = coord.substring(6,7);
 
-
-    let x1 = [];
-    let y1 = [];
     let bl = [];
     let tr = [];
     let diag1 = []
 
-    let x2 = [];
-    let y2 = [];
     let br = [];
     let tl = [];
     let diag2 = [];
-    //bottom left: x+3, y-3 -> x+1, y-1
-    for(let i = xVal + 3; i >= xVal; i--) {//x gen -> x1
 
-    }
-    for(let i = yVal - 3; i >= yVal; i--) {//y gen -> y1
 
+    //bottom left
+    for(let i = 3; i > 0; x--) {//x+3, y-3 --> x-1, y-1
+        let checkVal = `x${xVal + i}-y${yVal - i}-${startingColor}`;
+        bl += checkVal;
     }
+    bl += coord;
+    //top right
+    for(let i = 1; i < 3; i++) {//x-1, y+1 --> x-3, y+3
+        let checkVal = `x${xVal - i}-y${yVal + i}-${startingColor}`;  
+        tr += checkVal; 
+    }
+
 
     //top right: x, y -> x+3, y+3
-    
-
-
-
     //full diagonal 1 = bottom left + coord + top right
 }
 
