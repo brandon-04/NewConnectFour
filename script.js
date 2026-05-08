@@ -108,28 +108,36 @@ function checkRowWin(coord) {
 }
 
 function checkDiagonal(coord) {
-
-}
-
-function generateArray(coord) {
     let xVal = coord.substring(1,2);
     let yVal = coord.substring(4,5);
     let startingColor = coord.substring(6,7);
 
-    let aStartPosX = xVal + 3;
-    let aStartPosY = yVal - 3;
 
-    let aEndPosX = xVal - 3;
-    let aEndPosY = yVal + 3;
+    let x1 = [];
+    let y1 = [];
+    let bl = [];
+    let tr = [];
+    let diag1 = []
 
-    let bStartPosX = xVal + 3;
-    let bStartPosY = yVal + 3;
+    let x2 = [];
+    let y2 = [];
+    let br = [];
+    let tl = [];
+    let diag2 = [];
+    //bottom left: x+3, y-3 -> x+1, y-1
+    for(let i = xVal + 3; i >= xVal; i--) {//x gen -> x1
 
-    let bEndPosX = xVal -3;
-    let bEndPosY = yVal +3;
+    }
+    for(let i = yVal - 3; i >= yVal; i--) {//y gen -> y1
 
-    g
+    }
 
+    //top right: x, y -> x+3, y+3
+    
+
+
+
+    //full diagonal 1 = bottom left + coord + top right
 }
 
 function isEdge(coord) {
@@ -173,6 +181,3 @@ function winPrompt(colour) {
 // x1-x4
 // x2-x5
 // all potential wins go through x2 and x3
-
-
-
