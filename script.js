@@ -155,7 +155,6 @@ function winPrompt(colour) {
     setTimeout(() => {
         alert(`${colour == "B"? "Blue" : "Red"} wins!`)
         location.reload();
-
     },110);
     
 }
