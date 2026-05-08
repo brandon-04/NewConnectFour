@@ -84,7 +84,6 @@ function checkColumnWin(coord) {
 
     if(checkArray.includes("1111")) {
         winPrompt(startingColor);
-
     }
 }
 
@@ -104,12 +103,32 @@ function checkRowWin(coord) {
 
         if(checkArr.includes("1111")) {
             winPrompt(startingColor);
-            
         }
     }
 }
 
 function checkDiagonal(coord) {
+
+}
+
+function generateArray(coord) {
+    let xVal = coord.substring(1,2);
+    let yVal = coord.substring(4,5);
+    let startingColor = coord.substring(6,7);
+
+    let aStartPosX = xVal + 3;
+    let aStartPosY = yVal - 3;
+
+    let aEndPosX = xVal - 3;
+    let aEndPosY = yVal + 3;
+
+    let bStartPosX = xVal + 3;
+    let bStartPosY = yVal + 3;
+
+    let bEndPosX = xVal -3;
+    let bEndPosY = yVal +3;
+
+    g
 
 }
 
@@ -122,7 +141,6 @@ function isEdge(coord) {
     }
     return false;
 }
-
 
 function winPrompt(colour) {
 
@@ -155,4 +173,6 @@ function winPrompt(colour) {
 // x1-x4
 // x2-x5
 // all potential wins go through x2 and x3
+
+
 
