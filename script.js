@@ -128,7 +128,12 @@ function generateArray(coord) {
     let bEndPosX = xVal -3;
     let bEndPosY = yVal +3;
 
-    g
+    let a = "";
+    let b = "";
+
+    //+= B for blue, += R for red, += 0 for non-existent cell
+
+
 
 }
 
@@ -147,7 +152,6 @@ function winPrompt(colour) {
     setTimeout(() => {
         alert(`${colour == "B"? "Blue" : "Red"} wins!`)
         location.reload();
-
     },110);
     
 }
