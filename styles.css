@@ -13,7 +13,7 @@ body {
 
 #board {
     height: 75%;
-    width: 50%;
+    width: 35%;
 
     display: flex;
     flex-basis: 1;
