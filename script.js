@@ -111,73 +111,53 @@ function checkRowWin(coord) {
 }
 
 function checkDiagonal(coord) {
-    let xVal = coord.substring(1,2);
-    let yVal = coord.substring(4,5);
+    let xVal = parseInt(coord.substring(1,2));
+    let yVal = parseInt(coord.substring(4,5));
     let startingColor = coord.substring(6,7);
 
-    let bl = [];
-    let tr = [];
-    let diag1 = []
-
-    let br = [];
-    let tl = [];
+    let diag1 = [];
     let diag2 = [];
 
-
-    //bottom left
-    for(let i = 3; i > 0; x--) {//x+3, y-3 --> x-1, y-1
+    for(let i = 3; i >= 0; i--) {//x+3, y-3 --> x, y
         let checkVal = `x${xVal + i}-y${yVal - i}-${startingColor}`;
-        bl += checkVal;
+        diag1.push(checkVal);
     }
-    bl += coord;
-    //top right
-    for(let i = 1; i < 3; i++) {//x-1, y+1 --> x-3, y+3
+    for(let i = 1; i <= 3; i++) {//x-1, y+1 --> x-3, y+3
         let checkVal = `x${xVal - i}-y${yVal + i}-${startingColor}`;  
-        tr += checkVal; 
+        diag1.push(checkVal);
     }
-
-
-    //top right: x, y -> x+3, y+3
-    //full diagonal 1 = bottom left + coord + top right
-}
-
-function isEdge(coord) {
-    let xVal = coord.substring(1,2);
-    let yVal = coord.substring(4,5);
-
-    if(xVal == 0 || xVal == 5 || yVal == 0 || yVal == 6) {
-        return true;
+    for(let i = 3; i >= 0; i--) {//x+3, y+3 --> x, y
+        let checkVal = `x${xVal + i}-y${yVal + i}-${startingColor}`;
+        diag2.push(checkVal);
     }
-    return false;
+    for(let i = 1; i <= 3; i++) {//x-3, y-3 --> x, y
+        let checkVal = `x${xVal - i}-y${yVal - i}-${startingColor}`;
+        diag2.push(checkVal);
+    }
+    
+    let diagResults1 = "";
+    let diagResults2 = "";
+
+    diag1.forEach(cell => {
+        diagResults1 += locationOfPieces.includes(cell) ? "1" : "0";
+    });
+    diag2.forEach(cell => {
+        diagResults2 += locationOfPieces.includes(cell) ? "1" : "0";
+    });
+
+    if(diagResults1.includes("1111")) {
+        winPrompt(startingColor);
+    }
+    else if(diagResults1.includes("1111")) {
+        winPrompt(startingColor);
+    }
 }
 
 function winPrompt(colour) {
-
     setTimeout(() => {
         alert(`${colour == "B"? "Blue" : "Red"} wins!`)
         location.reload();
     },110);
-    
 }
 
 
-//x{xValue}-y{yValue}-{Colour}
-//row number(x) = coord.substring(1, 2)
-//column number(y) = coord.substring(4, 5)
-//cell colour = coord.substring(6, 7)
-
-//red turn: when turnCounter % 2 != 0
-//blue turn: when turnCounter % 2 == 0
-
-//row win possibilities
-// y0-y3
-// y1-y4
-// y2-y5
-// y3-y6
-// all potential wins go through y3
-
-//column win possibilities
-// x0-x3
-// x1-x4
-// x2-x5
-// all potential wins go through x2 and x3
